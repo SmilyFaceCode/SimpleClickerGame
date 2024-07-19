@@ -20,7 +20,9 @@ public:
 private slots:
     void on_ClickButton_clicked();
     std::string formatNumber(double n);
-    //right-click on the function then tab on refactor
+
+    void on_Upgrade_clicked();
+    void changeColor();
 private:
     Ui::MainWindow *ui;
 };
