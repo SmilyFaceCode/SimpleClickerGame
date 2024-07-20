@@ -15,8 +15,21 @@ double perClick = bperClick;
 double upgradePrice = bupgradePrice;
 double upgradeLevel = bupgradeLevel;
 
+// First we need to add the variables to auto click power, speed and level
+const double bAuto_Click_Power = 1;
+const double bAuto_Click_Level = 1;
+const int bAuto_Click_Speed = 1000;
+
+double Auto_Click_Power = bAuto_Click_Power;
+double Auto_Click_Level = bAuto_Click_Level;
+int Auto_Click_Speed = bAuto_Click_Speed;
+
+bool is_Auto_Click_Active = false;
+
+
 
 double Clicks = bClicks;
+
 
 
 
@@ -30,6 +43,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->ClickAmount->setText(QString::fromUtf8(formatNumber(Clicks)));
     ui->UpgradeLevel->setText(QString::fromUtf8(formatNumber(upgradeLevel)));
     ui->UpgradePrice->setText(QString::fromUtf8(formatNumber(upgradePrice)));
+
+    QTimer *timer = new QTimer;
+    connect(timer, SIGNAL(timeout()), this, SLOT(AutoClick()));
+    timer->setInterval(Auto_Click_Speed);
+    timer->start();
 
 }
 
@@ -90,4 +108,33 @@ void MainWindow::changeColor()
 {
     ui->Upgrade->setStyleSheet("");
 }
-// This is our video today have a good day
+
+
+
+
+
+
+
+void MainWindow::on_AutoClick_clicked()
+{
+    if(!is_Auto_Click_Active)
+    {
+        is_Auto_Click_Active = true;
+        ui->AutoClick->setStyleSheet("background-color: rgb(0,255,0)");
+    }
+    else
+    {
+        is_Auto_Click_Active = false;
+        ui->AutoClick->setStyleSheet("");
+    }
+}
+
+void MainWindow::AutoClick()
+{
+    if(is_Auto_Click_Active)
+    {
+        Clicks += Auto_Click_Power;
+        ui->ClickAmount->setText(QString::fromUtf8(formatNumber(Clicks)));
+    }
+}
+

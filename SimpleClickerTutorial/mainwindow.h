@@ -23,6 +23,10 @@ private slots:
 
     void on_Upgrade_clicked();
     void changeColor();
+
+
+    void on_AutoClick_clicked();
+    void AutoClick();
 private:
     Ui::MainWindow *ui;
 };
