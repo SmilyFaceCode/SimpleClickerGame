@@ -27,6 +27,10 @@ private slots:
 
     void on_AutoClick_clicked();
     void AutoClick();
+    void on_Auto_Click_Power_Upgrader_Button_clicked();
+
+    void on_Auto_Click_Timer_Upgrader_Button_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
