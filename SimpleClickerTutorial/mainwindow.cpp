@@ -6,7 +6,7 @@
 #include <QTimer>
 
 const double bClicks = 0;
-// first we need to add the variables to upgrader level, price and power
+
 const double bperClick = 1;
 const double bupgradePrice = 5;
 const double bupgradeLevel = 1;
@@ -15,7 +15,7 @@ double perClick = bperClick;
 double upgradePrice = bupgradePrice;
 double upgradeLevel = bupgradeLevel;
 
-// First we need to add the variables to auto click power, speed and level
+
 const double bAuto_Click_Power = 1;
 const double bAuto_Click_Level = 1;
 const int bAuto_Click_Speed = 1000;
@@ -24,6 +24,20 @@ double Auto_Click_Power = bAuto_Click_Power;
 double Auto_Click_Level = bAuto_Click_Level;
 int Auto_Click_Speed = bAuto_Click_Speed;
 
+
+/* Today we gonna upgrade auto click power and auto click speed
+ * in the last video we added auto click power and auto click speed
+ * today we gonna add on them
+*/
+
+const double bAuto_Click_Speed_Level = 1;
+const double bAuto_Click_Speed_Price = 500;
+const double bAuto_Click_Power_Price = 10;
+
+double Auto_Click_Speed_Level = bAuto_Click_Speed_Level;
+double Auto_Click_Speed_Price = bAuto_Click_Speed_Price;
+double Auto_Click_Power_Price = bAuto_Click_Power_Price;
+
 bool is_Auto_Click_Active = false;
 
 
@@ -31,7 +45,7 @@ bool is_Auto_Click_Active = false;
 double Clicks = bClicks;
 
 
-
+QTimer *timer = new QTimer;
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -44,7 +58,12 @@ MainWindow::MainWindow(QWidget *parent)
     ui->UpgradeLevel->setText(QString::fromUtf8(formatNumber(upgradeLevel)));
     ui->UpgradePrice->setText(QString::fromUtf8(formatNumber(upgradePrice)));
 
-    QTimer *timer = new QTimer;
+    ui->Auto_Click_Timer_Price->setText(QString::fromUtf8(formatNumber(Auto_Click_Speed_Price)));
+    ui->Auto_Click_Timer_Level->setText(QString::fromUtf8(formatNumber(Auto_Click_Speed_Level)));
+    ui->Auto_Click_Power_Level->setText(QString::fromUtf8(formatNumber(Auto_Click_Level)));
+    ui->Auto_Click_Power_Price->setText(QString::fromUtf8(formatNumber(Auto_Click_Power_Price)));
+
+
     connect(timer, SIGNAL(timeout()), this, SLOT(AutoClick()));
     timer->setInterval(Auto_Click_Speed);
     timer->start();
@@ -107,6 +126,8 @@ void MainWindow::on_Upgrade_clicked()
 void MainWindow::changeColor()
 {
     ui->Upgrade->setStyleSheet("");
+    ui->Auto_Click_Timer_Upgrader_Button->setStyleSheet("");
+    ui->Auto_Click_Power_Upgrader_Button->setStyleSheet("");
 }
 
 
@@ -136,5 +157,56 @@ void MainWindow::AutoClick()
         Clicks += Auto_Click_Power;
         ui->ClickAmount->setText(QString::fromUtf8(formatNumber(Clicks)));
     }
+}
+
+
+void MainWindow::on_Auto_Click_Power_Upgrader_Button_clicked()
+{
+    if(Auto_Click_Power_Price <= Clicks)
+    {
+        Clicks -= Auto_Click_Power_Price;
+        Auto_Click_Power_Price += bAuto_Click_Power_Price;
+        Auto_Click_Power++;
+        Auto_Click_Level++;
+        ui->Auto_Click_Power_Level->setText(QString::fromUtf8(formatNumber(Auto_Click_Level)));
+        ui->Auto_Click_Power_Price->setText(QString::fromUtf8(formatNumber(Auto_Click_Power_Price)));
+        ui->ClickAmount->setText(QString::fromUtf8(formatNumber(Clicks)));
+        ui->Auto_Click_Power_Upgrader_Button->setStyleSheet("Background-color: Green");
+    }
+    else
+    {
+        ui->Auto_Click_Power_Upgrader_Button->setStyleSheet("Background-color: Red");
+    }
+    QTimer::singleShot(200,this,&MainWindow::changeColor);
+
+}
+
+
+void MainWindow::on_Auto_Click_Timer_Upgrader_Button_clicked()
+{
+
+    if(Auto_Click_Speed_Price <= Clicks && Auto_Click_Speed > 2)
+    {
+        Clicks -= Auto_Click_Speed_Price;
+        Auto_Click_Speed -=20;
+        Auto_Click_Speed_Level++;
+        Auto_Click_Speed_Price *= 1.5;
+        ui->Auto_Click_Timer_Price->setText(QString::fromUtf8(formatNumber(Auto_Click_Speed_Price)));
+        ui->Auto_Click_Timer_Level->setText(QString::fromUtf8(formatNumber(Auto_Click_Speed_Level)));
+        ui->ClickAmount->setText(QString::fromUtf8(formatNumber(Clicks)));
+        ui->Auto_Click_Timer_Upgrader_Button->setStyleSheet("Background-color: Green");
+
+    }
+    else
+    {
+        ui->Auto_Click_Timer_Upgrader_Button->setStyleSheet("Background-color: Red");
+    }
+    if(Auto_Click_Speed <= 2)
+    {
+        Auto_Click_Speed = 2;
+        ui->Auto_Click_Timer_Upgrader_Button->setStyleSheet("Background-color: Yellow");
+    }
+    timer->setInterval(Auto_Click_Speed);
+    QTimer::singleShot(200,this,&MainWindow::changeColor);
 }
 
