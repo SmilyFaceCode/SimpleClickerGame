@@ -31,6 +31,11 @@ private slots:
 
     void on_Auto_Click_Timer_Upgrader_Button_clicked();
 
+
+
+
+    void on_RebirthButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

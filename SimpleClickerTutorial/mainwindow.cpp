@@ -18,17 +18,14 @@ double upgradeLevel = bupgradeLevel;
 
 const double bAuto_Click_Power = 1;
 const double bAuto_Click_Level = 1;
-const int bAuto_Click_Speed = 1000;
+const int  bAuto_Click_Speed = 1000;
 
 double Auto_Click_Power = bAuto_Click_Power;
 double Auto_Click_Level = bAuto_Click_Level;
-int Auto_Click_Speed = bAuto_Click_Speed;
+int    Auto_Click_Speed = bAuto_Click_Speed;
 
 
-/* Today we gonna upgrade auto click power and auto click speed
- * in the last video we added auto click power and auto click speed
- * today we gonna add on them
-*/
+
 
 const double bAuto_Click_Speed_Level = 1;
 const double bAuto_Click_Speed_Price = 500;
@@ -37,6 +34,17 @@ const double bAuto_Click_Power_Price = 10;
 double Auto_Click_Speed_Level = bAuto_Click_Speed_Level;
 double Auto_Click_Speed_Price = bAuto_Click_Speed_Price;
 double Auto_Click_Power_Price = bAuto_Click_Power_Price;
+
+
+const double bRebirth_Price = 1*1e3;
+const double bRebirth_Level = 1;
+
+double Rebirth_Price = bRebirth_Price;
+double Rebirth_Level = bRebirth_Level;
+
+
+
+
 
 bool is_Auto_Click_Active = false;
 
@@ -53,7 +61,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    // let's check if it's working we forgot to change perclick value
+
     ui->ClickAmount->setText(QString::fromUtf8(formatNumber(Clicks)));
     ui->UpgradeLevel->setText(QString::fromUtf8(formatNumber(upgradeLevel)));
     ui->UpgradePrice->setText(QString::fromUtf8(formatNumber(upgradePrice)));
@@ -63,6 +71,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->Auto_Click_Power_Level->setText(QString::fromUtf8(formatNumber(Auto_Click_Level)));
     ui->Auto_Click_Power_Price->setText(QString::fromUtf8(formatNumber(Auto_Click_Power_Price)));
 
+    ui->RebirthPrice->setText(QString::fromUtf8(formatNumber(Rebirth_Price)));
+    ui->RebirthLevel->setText(QString::fromUtf8(formatNumber(Rebirth_Level)));
 
     connect(timer, SIGNAL(timeout()), this, SLOT(AutoClick()));
     timer->setInterval(Auto_Click_Speed);
@@ -79,7 +89,7 @@ void MainWindow::on_ClickButton_clicked()
 {
 
 
-    Clicks += perClick;
+    Clicks += perClick * Rebirth_Level;
 
     ui->ClickAmount->setText(QString::fromUtf8(formatNumber(Clicks)));
 }
@@ -128,6 +138,7 @@ void MainWindow::changeColor()
     ui->Upgrade->setStyleSheet("");
     ui->Auto_Click_Timer_Upgrader_Button->setStyleSheet("");
     ui->Auto_Click_Power_Upgrader_Button->setStyleSheet("");
+    ui->RebirthButton->setStyleSheet("");
 }
 
 
@@ -154,7 +165,7 @@ void MainWindow::AutoClick()
 {
     if(is_Auto_Click_Active)
     {
-        Clicks += Auto_Click_Power;
+        Clicks += Auto_Click_Power * Rebirth_Level;
         ui->ClickAmount->setText(QString::fromUtf8(formatNumber(Clicks)));
     }
 }
@@ -207,6 +218,54 @@ void MainWindow::on_Auto_Click_Timer_Upgrader_Button_clicked()
         ui->Auto_Click_Timer_Upgrader_Button->setStyleSheet("Background-color: Yellow");
     }
     timer->setInterval(Auto_Click_Speed);
+    QTimer::singleShot(200,this,&MainWindow::changeColor);
+}
+
+
+
+
+
+
+
+
+void MainWindow::on_RebirthButton_clicked()
+{
+    if(Rebirth_Price <= Clicks)
+    {
+        Clicks = bClicks;
+        Rebirth_Price += bRebirth_Price;
+        Rebirth_Level++;
+
+        Auto_Click_Speed_Level = bAuto_Click_Speed_Level;
+        Auto_Click_Speed_Price = bAuto_Click_Speed_Price;
+        Auto_Click_Power_Price = bAuto_Click_Power_Price;
+
+        perClick = bperClick;
+        upgradePrice = bupgradePrice;
+        upgradeLevel = bupgradeLevel;
+
+        Auto_Click_Power = bAuto_Click_Power;
+        Auto_Click_Level = bAuto_Click_Level;
+        Auto_Click_Speed = bAuto_Click_Speed;
+
+        ui->ClickAmount->setText(QString::fromUtf8(formatNumber(Clicks)));
+        ui->UpgradeLevel->setText(QString::fromUtf8(formatNumber(upgradeLevel)));
+        ui->UpgradePrice->setText(QString::fromUtf8(formatNumber(upgradePrice)));
+
+        ui->Auto_Click_Timer_Price->setText(QString::fromUtf8(formatNumber(Auto_Click_Speed_Price)));
+        ui->Auto_Click_Timer_Level->setText(QString::fromUtf8(formatNumber(Auto_Click_Speed_Level)));
+        ui->Auto_Click_Power_Level->setText(QString::fromUtf8(formatNumber(Auto_Click_Level)));
+        ui->Auto_Click_Power_Price->setText(QString::fromUtf8(formatNumber(Auto_Click_Power_Price)));
+
+        ui->RebirthPrice->setText(QString::fromUtf8(formatNumber(Rebirth_Price)));
+        ui->RebirthLevel->setText(QString::fromUtf8(formatNumber(Rebirth_Level)));
+
+        ui->RebirthButton->setStyleSheet("Background-color: Green");
+    }
+    else
+    {
+        ui->RebirthButton->setStyleSheet("Background-color: Red");
+    }
     QTimer::singleShot(200,this,&MainWindow::changeColor);
 }
 
