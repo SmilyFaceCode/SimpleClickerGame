@@ -43,6 +43,12 @@ double Rebirth_Price = bRebirth_Price;
 double Rebirth_Level = bRebirth_Level;
 
 
+const int bUpgrading_Limit = 1;
+const int bUpgrading_Limit_Level = 1;
+
+int Upgrading_Limit = bUpgrading_Limit;
+int Upgrading_Limit_Level = bUpgrading_Limit_Level;
+
 
 
 
@@ -73,6 +79,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->RebirthPrice->setText(QString::fromUtf8(formatNumber(Rebirth_Price)));
     ui->RebirthLevel->setText(QString::fromUtf8(formatNumber(Rebirth_Level)));
+
+    ui->Upgrading_Limit_Button->setText(QString::number(Upgrading_Limit));
 
     connect(timer, SIGNAL(timeout()), this, SLOT(AutoClick()));
     timer->setInterval(Auto_Click_Speed);
@@ -115,21 +123,29 @@ std::string MainWindow::formatNumber(double n)
 
 void MainWindow::on_Upgrade_clicked()
 {
-    if(Clicks >= upgradePrice)
+    if(Clicks < upgradePrice)
     {
-        Clicks -= upgradePrice;
-        upgradePrice++;
-        upgradeLevel++;
-        perClick++;
-        ui->ClickAmount->setText(QString::fromUtf8(formatNumber(Clicks)));
-        ui->UpgradeLevel->setText(QString::fromUtf8(formatNumber(upgradeLevel)));
-        ui->UpgradePrice->setText(QString::fromUtf8(formatNumber(upgradePrice)));
-        ui->Upgrade->setStyleSheet("background-color: rgb(0, 255, 0)");
+        ui->Upgrade->setStyleSheet("Background-color: Red");
     }
-    else
+    for(int i = 0; i < Upgrading_Limit; i++)
     {
-        ui->Upgrade->setStyleSheet("background-color: rgb(255, 0, 0)");
+        if(Clicks >= upgradePrice)
+        {
+            Clicks -= upgradePrice;
+            upgradePrice++;
+            upgradeLevel++;
+            perClick++;
+            ui->ClickAmount->setText(QString::fromUtf8(formatNumber(Clicks)));
+            ui->UpgradeLevel->setText(QString::fromUtf8(formatNumber(upgradeLevel)));
+            ui->UpgradePrice->setText(QString::fromUtf8(formatNumber(upgradePrice)));
+            ui->Upgrade->setStyleSheet("background-color: rgb(0, 255, 0)");
+        }
+        else
+        {
+            break;
+        }
     }
+
     QTimer::singleShot(200,this,&MainWindow::changeColor);
 }
 
@@ -173,21 +189,29 @@ void MainWindow::AutoClick()
 
 void MainWindow::on_Auto_Click_Power_Upgrader_Button_clicked()
 {
-    if(Auto_Click_Power_Price <= Clicks)
-    {
-        Clicks -= Auto_Click_Power_Price;
-        Auto_Click_Power_Price += bAuto_Click_Power_Price;
-        Auto_Click_Power++;
-        Auto_Click_Level++;
-        ui->Auto_Click_Power_Level->setText(QString::fromUtf8(formatNumber(Auto_Click_Level)));
-        ui->Auto_Click_Power_Price->setText(QString::fromUtf8(formatNumber(Auto_Click_Power_Price)));
-        ui->ClickAmount->setText(QString::fromUtf8(formatNumber(Clicks)));
-        ui->Auto_Click_Power_Upgrader_Button->setStyleSheet("Background-color: Green");
-    }
-    else
+    if(Auto_Click_Power_Price > Clicks)
     {
         ui->Auto_Click_Power_Upgrader_Button->setStyleSheet("Background-color: Red");
     }
+    for(int i = 0; i < Upgrading_Limit; i++)
+    {
+        if(Auto_Click_Power_Price <= Clicks)
+        {
+            Clicks -= Auto_Click_Power_Price;
+            Auto_Click_Power_Price += bAuto_Click_Power_Price;
+            Auto_Click_Power++;
+            Auto_Click_Level++;
+            ui->Auto_Click_Power_Level->setText(QString::fromUtf8(formatNumber(Auto_Click_Level)));
+            ui->Auto_Click_Power_Price->setText(QString::fromUtf8(formatNumber(Auto_Click_Power_Price)));
+            ui->ClickAmount->setText(QString::fromUtf8(formatNumber(Clicks)));
+            ui->Auto_Click_Power_Upgrader_Button->setStyleSheet("Background-color: Green");
+        }
+        else
+        {
+            break;
+        }
+    }
+
     QTimer::singleShot(200,this,&MainWindow::changeColor);
 
 }
@@ -195,23 +219,30 @@ void MainWindow::on_Auto_Click_Power_Upgrader_Button_clicked()
 
 void MainWindow::on_Auto_Click_Timer_Upgrader_Button_clicked()
 {
-
-    if(Auto_Click_Speed_Price <= Clicks && Auto_Click_Speed > 2)
-    {
-        Clicks -= Auto_Click_Speed_Price;
-        Auto_Click_Speed -=20;
-        Auto_Click_Speed_Level++;
-        Auto_Click_Speed_Price *= 1.5;
-        ui->Auto_Click_Timer_Price->setText(QString::fromUtf8(formatNumber(Auto_Click_Speed_Price)));
-        ui->Auto_Click_Timer_Level->setText(QString::fromUtf8(formatNumber(Auto_Click_Speed_Level)));
-        ui->ClickAmount->setText(QString::fromUtf8(formatNumber(Clicks)));
-        ui->Auto_Click_Timer_Upgrader_Button->setStyleSheet("Background-color: Green");
-
-    }
-    else
+    if(Auto_Click_Speed_Price > Clicks)
     {
         ui->Auto_Click_Timer_Upgrader_Button->setStyleSheet("Background-color: Red");
     }
+    for(int i = 0; i < Upgrading_Limit; i++)
+    {
+        if(Auto_Click_Speed_Price <= Clicks && Auto_Click_Speed > 2)
+        {
+            Clicks -= Auto_Click_Speed_Price;
+            Auto_Click_Speed -=20;
+            Auto_Click_Speed_Level++;
+            Auto_Click_Speed_Price *= 1.5;
+            ui->Auto_Click_Timer_Price->setText(QString::fromUtf8(formatNumber(Auto_Click_Speed_Price)));
+            ui->Auto_Click_Timer_Level->setText(QString::fromUtf8(formatNumber(Auto_Click_Speed_Level)));
+            ui->ClickAmount->setText(QString::fromUtf8(formatNumber(Clicks)));
+            ui->Auto_Click_Timer_Upgrader_Button->setStyleSheet("Background-color: Green");
+
+        }
+        else
+        {
+            break;
+        }
+
+    }    
     if(Auto_Click_Speed <= 2)
     {
         Auto_Click_Speed = 2;
@@ -267,5 +298,37 @@ void MainWindow::on_RebirthButton_clicked()
         ui->RebirthButton->setStyleSheet("Background-color: Red");
     }
     QTimer::singleShot(200,this,&MainWindow::changeColor);
+}
+
+
+
+
+
+void MainWindow::on_Upgrading_Limit_Button_clicked()
+{
+    Upgrading_Limit_Level++;
+    if(Upgrading_Limit_Level > 4)
+    {
+        Upgrading_Limit_Level = 1;
+    }
+
+    switch (Upgrading_Limit_Level) {
+    case 1:
+        Upgrading_Limit = 1;
+        break;
+    case 2:
+        Upgrading_Limit = 10;
+        break;
+    case 3:
+        Upgrading_Limit = 100;
+        break;
+    case 4:
+        Upgrading_Limit = 1000;
+        break;
+    default:
+        Upgrading_Limit = 1;
+        break;
+    }
+    ui->Upgrading_Limit_Button->setText(QString::number(Upgrading_Limit));
 }
 

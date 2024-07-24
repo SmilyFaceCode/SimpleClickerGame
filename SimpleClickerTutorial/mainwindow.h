@@ -36,6 +36,10 @@ private slots:
 
     void on_RebirthButton_clicked();
 
+
+
+    void on_Upgrading_Limit_Button_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
