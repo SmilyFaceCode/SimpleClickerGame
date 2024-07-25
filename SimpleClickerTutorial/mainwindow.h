@@ -2,6 +2,13 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTextStream>
+#include <QString>
+#include <QList>
+#include <QFile>
+
+
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -15,6 +22,7 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
+    MainWindow(Ui::MainWindow *ui);
     ~MainWindow();
 
 private slots:
@@ -24,6 +32,8 @@ private slots:
     void on_Upgrade_clicked();
     void changeColor();
 
+    void saveFile(const QString &fileName, const QList<double> &values);
+    QList<double> loadFile(const QString &fileName);
 
     void on_AutoClick_clicked();
     void AutoClick();
@@ -39,6 +49,8 @@ private slots:
 
 
     void on_Upgrading_Limit_Button_clicked();
+
+
 
 private:
     Ui::MainWindow *ui;

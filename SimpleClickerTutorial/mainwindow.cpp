@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <QTimer>
 
+
 const double bClicks = 0;
 
 const double bperClick = 1;
@@ -61,6 +62,7 @@ double Clicks = bClicks;
 
 QTimer *timer = new QTimer;
 
+QString file = "Values.txt";
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -68,6 +70,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    loadFile(file);
     ui->ClickAmount->setText(QString::fromUtf8(formatNumber(Clicks)));
     ui->UpgradeLevel->setText(QString::fromUtf8(formatNumber(upgradeLevel)));
     ui->UpgradePrice->setText(QString::fromUtf8(formatNumber(upgradePrice)));
@@ -82,6 +85,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->Upgrading_Limit_Button->setText(QString::number(Upgrading_Limit));
 
+
     connect(timer, SIGNAL(timeout()), this, SLOT(AutoClick()));
     timer->setInterval(Auto_Click_Speed);
     timer->start();
@@ -90,6 +94,11 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    QList<double> values = {Clicks,perClick,Rebirth_Level,upgradeLevel,upgradePrice,
+                             Auto_Click_Level,Auto_Click_Power,Auto_Click_Power_Price,
+                            Auto_Click_Speed_Level,Auto_Click_Speed_Price,(double)Auto_Click_Speed,
+                            (double)Upgrading_Limit_Level,(double)Upgrading_Limit, Rebirth_Price};
+    saveFile(file,values);
     delete ui;
 }
 
@@ -161,6 +170,67 @@ void MainWindow::changeColor()
 
 
 
+
+void MainWindow::saveFile(const QString &fileName, const QList<double> &values)
+{
+    QFile file(fileName);
+    if(file.open(QIODevice::WriteOnly| QIODevice::Text))
+    {
+        QTextStream out (&file);
+
+        for(double value : values)
+        {
+            out << QString::number(value, 'f', 6) << "\n";
+        }
+        file.close();
+    }
+    else
+    {
+        qWarning() << "SAVE_FILE FAILED TO LOAD" << file.errorString();
+    }
+
+}
+
+QList<double> MainWindow::loadFile(const QString &fileName)
+{
+    QList<double> values;
+    QFile file(fileName);
+    if(file.open(QIODevice::ReadOnly| QIODevice:: Text))
+    {
+        QTextStream in(&file);
+        while(!in.atEnd())
+        {
+            QString line = in.readLine();
+            bool ok;
+            double value  = line.toDouble(&ok);
+            if(ok)
+            {
+                values.append(value);
+            }
+        }
+
+        Clicks = values[0];
+        perClick = values[1];
+        Rebirth_Level = values[2];
+        upgradeLevel = values[3];
+        upgradePrice = values[4];
+        Auto_Click_Level = values[5];
+        Auto_Click_Power = values[6];
+        Auto_Click_Power_Price = values[7];
+        Auto_Click_Speed_Level = values[8];
+        Auto_Click_Speed_Price = values[9];
+        Auto_Click_Speed = (int)values[10];
+        Upgrading_Limit_Level = (int)values[11];
+        Upgrading_Limit = (int)values[12];
+        Rebirth_Price = values[13];
+        file.close();
+    }
+    else
+    {
+        qWarning() << "LOAD_FILE FAILED TO LOAD" << file.errorString();
+    }
+    return values;
+}
 
 
 void MainWindow::on_AutoClick_clicked()
@@ -331,4 +401,7 @@ void MainWindow::on_Upgrading_Limit_Button_clicked()
     }
     ui->Upgrading_Limit_Button->setText(QString::number(Upgrading_Limit));
 }
+
+
+
 
