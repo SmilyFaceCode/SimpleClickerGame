@@ -9,4 +9,4 @@ int main(int argc, char *argv[])
     w.show();
     return a.exec();
 }
-// now we gonna add the click button it's simple and easy
+

@@ -13,18 +13,40 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 170, 0);</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 85, 0);
+background-color: rgb(255, 255, 127);</string>
+   </property>
    <widget class="QPushButton" name="ClickButton">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>220</y>
-      <width>100</width>
-      <height>100</height>
+      <x>290</x>
+      <y>180</y>
+      <width>140</width>
+      <height>140</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
     <property name="text">
-     <string>CLICK</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../ClickerGameIcons/2cursor.png</normaloff>../ClickerGameIcons/2cursor.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>140</width>
+      <height>140</height>
+     </size>
     </property>
    </widget>
    <widget class="QLabel" name="Clicks">
@@ -63,19 +85,6 @@
      <string>0</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="Rebirth">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>170</y>
-      <width>80</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Rebirth</string>
-    </property>
-   </widget>
    <widget class="QFrame" name="UpgradeFrame">
     <property name="geometry">
      <rect>
@@ -85,11 +94,20 @@
       <height>171</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 201, 92);</string>
+    </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
     </property>
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
+    </property>
+    <property name="lineWidth">
+     <number>1</number>
+    </property>
+    <property name="midLineWidth">
+     <number>0</number>
     </property>
     <widget class="QPushButton" name="Upgrade">
      <property name="geometry">
@@ -101,10 +119,20 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true"/>
+      <string notr="true">background-color: rgb(255, 170, 0);</string>
      </property>
      <property name="text">
-      <string>UPGRADE</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../ClickerGameIcons/up-arrow.png</normaloff>../ClickerGameIcons/up-arrow.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>55</width>
+       <height>55</height>
+      </size>
      </property>
     </widget>
     <widget class="QLabel" name="UpgradePrice">
@@ -153,8 +181,26 @@
       <height>81</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 170, 0);</string>
+    </property>
     <property name="text">
      <string>AutoClick</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../ClickerGameIcons/1cursor.png</normaloff>../ClickerGameIcons/1cursor.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>16</width>
+      <height>16</height>
+     </size>
     </property>
    </widget>
    <widget class="QFrame" name="UpgradeFrame_2">
@@ -165,6 +211,9 @@
       <width>141</width>
       <height>171</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 201, 92);</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -182,10 +231,20 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true"/>
+      <string notr="true">background-color: rgb(255, 170, 0);</string>
      </property>
      <property name="text">
-      <string>ACPU</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../ClickerGameIcons/development.png</normaloff>../ClickerGameIcons/development.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>55</width>
+       <height>55</height>
+      </size>
      </property>
     </widget>
     <widget class="QLabel" name="Auto_Click_Power_Price">
@@ -234,6 +293,9 @@
       <height>171</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 201, 92);</string>
+    </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
     </property>
@@ -250,10 +312,20 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true"/>
+      <string notr="true">background-color: rgb(255, 170, 0);</string>
      </property>
      <property name="text">
-      <string>ACTU</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../ClickerGameIcons/time-management.png</normaloff>../ClickerGameIcons/time-management.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>55</width>
+       <height>55</height>
+      </size>
      </property>
     </widget>
     <widget class="QLabel" name="Auto_Click_Timer_Price">
@@ -293,6 +365,117 @@
      </property>
     </widget>
    </widget>
+   <widget class="QFrame" name="RebirthFrame">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>150</y>
+      <width>141</width>
+      <height>171</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 201, 92);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QPushButton" name="RebirthButton">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>50</y>
+       <width>91</width>
+       <height>81</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 170, 0);</string>
+     </property>
+     <property name="text">
+      <string>Rebirth</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../ClickerGameIcons/recycle.png</normaloff>../ClickerGameIcons/recycle.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QLabel" name="RebirthPrice">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>10</y>
+       <width>81</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="RebirthLevel">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>130</y>
+       <width>71</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="Upgrading_Limit_Button">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>20</y>
+      <width>80</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 170, 0);</string>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </widget>
+   <zorder>Clicks</zorder>
+   <zorder>ClickAmount</zorder>
+   <zorder>UpgradeFrame</zorder>
+   <zorder>AutoClick</zorder>
+   <zorder>UpgradeFrame_2</zorder>
+   <zorder>Auto_Click_Time_Upgrader_Frame</zorder>
+   <zorder>RebirthFrame</zorder>
+   <zorder>Upgrading_Limit_Button</zorder>
+   <zorder>ClickButton</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

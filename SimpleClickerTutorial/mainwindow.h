@@ -52,6 +52,10 @@ private slots:
 
 
 
+    void on_ClickButton_pressed();
+
+    void on_ClickButton_released();
+
 private:
     Ui::MainWindow *ui;
 };

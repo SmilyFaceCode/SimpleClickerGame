@@ -70,6 +70,16 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    // Today we gonna add some icons to the game and change it title on the window
+    setWindowTitle("Clicker Game");
+    setWindowIcon(QIcon("/QT_Projects/ClickerGameIcons/1cursor.png"));
+
+    ui->ClickButton->setIcon(QIcon("/QT_Projects/ClickerGameIcons/2cursor.png"));
+    ui->RebirthButton->setIcon(QIcon("/QT_Projects/ClickerGameIcons/recycle.png"));
+    ui->Upgrade->setIcon(QIcon("/QT_Projects/ClickerGameIcons/up-arrow.png"));
+    ui->AutoClick->setIcon(QIcon("/QT_Projects/ClickerGameIcons/1cursor.png"));
+    ui->Auto_Click_Timer_Upgrader_Button->setIcon(QIcon("/QT_Projects/ClickerGameIcons/time-management.png"));
+    ui->Auto_Click_Power_Upgrader_Button->setIcon(QIcon("/QT_Projects/ClickerGameIcons/development.png"));
     loadFile(file);
     ui->ClickAmount->setText(QString::fromUtf8(formatNumber(Clicks)));
     ui->UpgradeLevel->setText(QString::fromUtf8(formatNumber(upgradeLevel)));
@@ -160,10 +170,10 @@ void MainWindow::on_Upgrade_clicked()
 
 void MainWindow::changeColor()
 {
-    ui->Upgrade->setStyleSheet("");
-    ui->Auto_Click_Timer_Upgrader_Button->setStyleSheet("");
-    ui->Auto_Click_Power_Upgrader_Button->setStyleSheet("");
-    ui->RebirthButton->setStyleSheet("");
+    ui->Upgrade->setStyleSheet("background-color: rgb(255, 170, 0)");
+    ui->Auto_Click_Timer_Upgrader_Button->setStyleSheet("background-color: rgb(255, 170, 0)");
+    ui->Auto_Click_Power_Upgrader_Button->setStyleSheet("background-color: rgb(255, 170, 0)");
+    ui->RebirthButton->setStyleSheet("background-color: rgb(255, 170, 0)");
 }
 
 
@@ -243,7 +253,7 @@ void MainWindow::on_AutoClick_clicked()
     else
     {
         is_Auto_Click_Active = false;
-        ui->AutoClick->setStyleSheet("");
+        ui->AutoClick->setStyleSheet("background-color: rgb(255, 170, 0)");
     }
 }
 
@@ -404,4 +414,18 @@ void MainWindow::on_Upgrading_Limit_Button_clicked()
 
 
 
+
+
+
+
+void MainWindow::on_ClickButton_pressed()
+{
+    ui->ClickButton->setIcon(QIcon("/QT_Projects/ClickerGameIcons/1cursor.png"));
+}
+
+
+void MainWindow::on_ClickButton_released()
+{
+    ui->ClickButton->setIcon(QIcon("/QT_Projects/ClickerGameIcons/2cursor.png"));
+}
 
